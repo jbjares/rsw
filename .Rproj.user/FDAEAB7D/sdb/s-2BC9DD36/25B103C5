@@ -1,0 +1,16 @@
+{
+    "contents" : "a\n========================================================\nauthor: \ndate: \n\nFirst Slide\n========================================================\n\nFor more details on authoring R presentations click the\n**Help** button on the toolbar.\n\n- Bullet 1\n- Bullet 2\n- Bullet 3\n\nSlide With Code\n========================================================\n\n```{r}\nsummary(cars)\n```\n\nSlide With Plot\n========================================================\n\n```{r, echo=FALSE}\nplot(cars)\n```\n",
+    "created" : 1431303658149.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "827035471",
+    "id" : "25B103C5",
+    "lastKnownWriteTime" : 1431303658,
+    "path" : "~/soundwave/Q1/a.Rpres",
+    "project_path" : "a.Rpres",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_presentation"
+}

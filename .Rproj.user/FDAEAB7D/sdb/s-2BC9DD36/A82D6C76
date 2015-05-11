@@ -1,0 +1,22 @@
+{
+    "contents" : "",
+    "created" : 1431313169281.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "A82D6C76",
+    "lastKnownWriteTime" : 0,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "caption" : "androidData",
+        "contentUrl" : "content?title=androidData&file=c947441dbfcd4e988ff51998c46102f3.htm",
+        "displayedObservations" : 4,
+        "displayedVariables" : 4,
+        "totalObservations" : 4,
+        "variables" : 4
+    },
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}

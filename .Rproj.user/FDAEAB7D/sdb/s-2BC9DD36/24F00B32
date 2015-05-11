@@ -1,0 +1,17 @@
+{
+    "contents" : "\nsource(\"global.R\")\n\n\nlibrary(ggplot2)\nlibrary(reshape)\nlibrary(plyr)\nlibrary(rmongodb)\nlibrary(dplyr)\n\nmongo <- mongo.create(host = hostDesenv, username = usernameDesenv, password = passwordDesenv, db = dbDesenv, timeout = 0L)\ncursor <- mongo.find.all(mongo, playCollectionVar, query = mongo.bson.empty(), sort = mongo.bson.empty(),\n                         fields = mongo.bson.empty(), limit = 0L, skip = 0L, options = 0L,data.frame = F)\n\ndf <- data.frame(matrix(unlist(cursor), nrow=386, byrow=T),stringsAsFactors=FALSE)\ncolnames(df) <- c(\"ID\",\"COL_NAME\",\"PLAY_DATE\",\"TITLE\",\"ARTIST\",\"ACCESS_DATE\",\"PLATAFORM\",\"SOURCE_NAME\",\"DEVICE\",\"BACKGROUNDED\",\"AUTOPLAY\",\"LNG\",\"LAT\",\"COUNTRY\",\"USER_ID\",\"ACTION_TYPE\")\n\nCount <- rle(sort(df$SOURCE_NAME))\nx <- Count$values\ny <- Count$lengths\ndf2<-data.frame(x=x,y=y)\npar(mfcol=c(1,2))\n\na <- ggplot(melt(x,id.vars=y),aes(x,Count$lengths,colour=Count$values,group=\"goups\"))+ geom_line()\n\n\nb <- ggplot(melt(x,id.vars=y),aes(x,Count$lengths,colour=Count$values,group=Count$values))+\ngeom_bar(subset=.(y==\"y\"),stat=\"identity\")\n\n\npie(y,labels=paste0(x,\": \",signif((y/sum(y))*100,5),\"%\"))\n\n\nprint(a)\nprint(b)",
+    "created" : 1431235194437.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1261822527",
+    "id" : "24F00B32",
+    "lastKnownWriteTime" : 1431280493,
+    "path" : "~/soundwave/Q1/testggplot2.R",
+    "project_path" : "testggplot2.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

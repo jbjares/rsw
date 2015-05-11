@@ -1,0 +1,17 @@
+{
+    "contents" : "source(\"mongo.R\")\n\ninstallRequiredPackages <- function(){\n  if(!(\"rmongodb\" %in% rownames(installed.packages()))){\n    install.packages(\"rmongodb\")  \n  }\n  if(!(\"plyr\" %in% rownames(installed.packages()))){\n    install.packages(\"plyr\")  \n  }\n  if(!(\"ggplot2\" %in% rownames(installed.packages()))){\n    install.packages(\"ggplot2\")  \n  }\n  if(!(\"reshape2\" %in% rownames(installed.packages()))){\n    install.packages(\"reshape2\")  \n  }\n  if(!(\"dplyr\" %in% rownames(installed.packages()))){\n    install.packages(\"dplyr\")  \n  }\n}\n\n\n\ninstallRequiredPackages()\n",
+    "created" : 1431214366929.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4279561551",
+    "id" : "422B4CDF",
+    "lastKnownWriteTime" : 1431240828,
+    "path" : "~/soundwave/Q1/global.R",
+    "project_path" : "global.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
