@@ -3,11 +3,22 @@ hostDesenv <- "127.0.0.1"
 usernameDesenv <-""
 passwordDesenv <- ""
 dbDesenv = "soundwave"
+seed <<- 123
 
+fullDFColumnsNames <<- c("ID","COL_NAME","PLAY_DATE","TITLE","ARTIST","ACCESS_DATE","PLATAFORM","SOURCE_NAME","DEVICE","BACKGROUNDED","AUTOPLAY","LNG","LAT","COUNTRY","USER_ID","ACTION_TYPE")
 
 if(!exists("mongoConn")){
-  mongoConn <- NULL
+    mongoConn <<- NULL
 }
+if(!exists("cursor")){
+    cursor <<- NULL
+}
+
+if(!exists("fullDF")){
+    fullDF <<- NULL
+}
+
+
 
 connectWithMongo <- function(){
   library(rmongodb)
@@ -32,6 +43,12 @@ installRequiredPackages <- function(){
   }
   if(!("rpart" %in% rownames(installed.packages()))){
     install.packages("rpart")
+  }
+  if(!("lubridate" %in% rownames(installed.packages()))){
+    install.packages("lubridate")
+  }
+  if(!("stringr" %in% rownames(installed.packages()))){
+    install.packages("stringr")
   }
   
 }

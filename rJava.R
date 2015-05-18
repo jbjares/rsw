@@ -1,19 +1,26 @@
 
-javaHomeVar <- readline("If you know where's located your JAVA_HOME, please set. Else just input 'N'? \n (e.g C:/Program Files/Java/jdk1.7.0_71/jre)") 
-if(javaHomeVar=="N"){
-  javaHomeVar <- readline(
-    "Can I set to the following location C:/Program Files/Java/jdk1.7.0_71/jre ? (Y/N)") 
-}
-if(javaHomeVar=="Y"){
-  Sys.setenv(JAVA_HOME=paste0(gsub("\\\\", "/", javaHomeVar)))
-}
-if(javaHomeVar==""){
-  print("Quitting app...")
-  q()
+javaHomeVar <- readline(
+  "If your JAVA_HOME is different from that \n
+  C:/Program Files/Java/jdk1.7.0_71/jre, please input below, else press enter:")
+
+if(javaHomeVar!=""){
+  Sys.setenv(JAVA_HOME=javaHomeVar)
+}else{
+  Sys.setenv(JAVA_HOME="C:/Program Files/Java/jdk1.7.0_71/jre")
+  javaHomeVar<- "C:/Program Files/Java/jdk1.7.0_71/jre"
 }
 
-print("Thank you!")
 
 if(!("rJava" %in% rownames(installed.packages()))){
-  install.packages("rJava")  
+        install.packages("rJava")  
 }
+
+.jinit("MassGen-0.0.1-SNAPSHOT.jar",parameters="-DrJava.debug=true -Xmx512m")
+jp <- getOption("java.parameters")
+while(is.null(jp)){
+  jp <- getOption("java.parameters")
+  print(jp)
+}
+
+.jengine(start = T, silent = F)
+.jpackage(paste0(gsub("\\\\", "/", getwd()),"/lib"), jars='*', , nativeLibrary=F, lib.loc=NULL)

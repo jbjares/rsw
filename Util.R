@@ -15,6 +15,12 @@ Util <- list(
       }
     }
     close(pb)
+  },
+  
+  convertDate = function(dates){
+    library(lubridate)
+    datesReturn <- ymd_hms(dates)
+    return(as.character(datesReturn))
   }
   
 )
