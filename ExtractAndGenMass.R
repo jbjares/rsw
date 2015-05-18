@@ -1,6 +1,5 @@
-source("rJava.R")
-source("javaCompileAndPackageToRFolder.R")
-extractMass <- list(
+
+ExtractMass <- list(
   
   codeAndCountyExtract = function(){
     fileVar <- paste0(gsub("\\\\", "/", getwd()),"/iTunesCodesAndCountries.csv")
@@ -48,7 +47,7 @@ extractMass <- list(
   }
 )
 
-extractMass$codeAndCountyExtract()
-extractMass$basicDataExtract()
-extractMass$geoLocDataExtract()
-extractMass$playGen()
+ExtractMass$codeAndCountyExtract()
+ExtractMass$basicDataExtract()
+ExtractMass$geoLocDataExtract()
+ExtractMass$playGen()

@@ -15,11 +15,11 @@ if(!("rJava" %in% rownames(installed.packages()))){
         install.packages("rJava")  
 }
 
+library(rJava)
 .jinit("MassGen-0.0.1-SNAPSHOT.jar",parameters="-DrJava.debug=true -Xmx512m")
 jp <- getOption("java.parameters")
 while(is.null(jp)){
   jp <- getOption("java.parameters")
-  print(jp)
 }
 
 .jengine(start = T, silent = F)

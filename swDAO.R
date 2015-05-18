@@ -52,9 +52,14 @@ DAO <- list(
     },
     
     aggregateDateAndCountryOfAcessByServiceName = function(fullDF,serviceName){
+      library(lubridate)
       dates <- ymd_hms(fullDF$PLAY_DATE)
       countries <- fullDF$COUNTRY
-      pp_values <- ifelse(fullDF$SOURCE_NAME==serviceName, sum(fullDF$SOURCE_NAME==serviceName),0)
+      if(serviceName=="ALL"){
+        pp_values <- length(fullDF)
+      }else{
+        pp_values <- ifelse(fullDF$SOURCE_NAME==serviceName, sum(fullDF$SOURCE_NAME==serviceName),0)
+      }
       aggregate <- aggregate(pp_values ~ dates + countries, data=fullDF, FUN=sum)
       aggregate$share <- ave(aggregate$pp_values, aggregate$countries, aggregate$dates, FUN=function(x) x/sum(x))
       aggregate <- na.omit(aggregate)
@@ -62,7 +67,7 @@ DAO <- list(
     },
     ## expect the result of the: aggregateDateAndCountryOfAcessByServiceName
     summarizeAAccessPerCountry = function(aggregateDateAndCountryOfAcessByServiceName){
-      result <- ddply(aggregateDateAndCountryOfAcessByServiceName, .(countries), summarize, total_sare = sum(share))
+      result <- ddply(aggregateDateAndCountryOfAcessByServiceName, .(countries), summarize, total_share = sum(share))
       return(result)
     },
     
