@@ -24,11 +24,6 @@ Presentation <- list(
     summary(ag_pp_access_sum$total_share)
   },
   
-  showSummarizedMarketShareByAllServices = function(fullDF){
-    ag_pp <- DAO$aggregateDateAndCountryOfAcessByServiceName(fullDF,"ALL")
-    ag_pp_access_sum <- DAO$summarizeAAccessPerCountry(ag_pp)
-    summary(ag_pp_access_sum$total_share)
-  },
   
   showRankingByCountry = function(fullDF,serviceName){
     ag_pp <- DAO$aggregateDateAndCountryOfAcessByServiceName(fullDF,serviceName)

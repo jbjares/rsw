@@ -50,6 +50,10 @@ installRequiredPackages <- function(){
   if(!("stringr" %in% rownames(installed.packages()))){
     install.packages("stringr")
   }
+  if(!("xtable" %in% rownames(installed.packages()))){
+    install.packages("xtable")
+  }
+  
   
 }
 

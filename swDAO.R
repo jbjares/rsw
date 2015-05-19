@@ -55,11 +55,8 @@ DAO <- list(
       library(lubridate)
       dates <- ymd_hms(fullDF$PLAY_DATE)
       countries <- fullDF$COUNTRY
-      if(serviceName=="ALL"){
-        pp_values <- length(fullDF)
-      }else{
-        pp_values <- ifelse(fullDF$SOURCE_NAME==serviceName, sum(fullDF$SOURCE_NAME==serviceName),0)
-      }
+      pp_values <- ifelse(fullDF$SOURCE_NAME==serviceName, sum(fullDF$SOURCE_NAME==serviceName),0)
+      
       aggregate <- aggregate(pp_values ~ dates + countries, data=fullDF, FUN=sum)
       aggregate$share <- ave(aggregate$pp_values, aggregate$countries, aggregate$dates, FUN=function(x) x/sum(x))
       aggregate <- na.omit(aggregate)
