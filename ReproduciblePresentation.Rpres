@@ -1,14 +1,75 @@
-Presentation
+Soundwave Project
 ========================================================
 author: Joao Bosco Jares
 date: 18/05/2015
 
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(cache=TRUE)
+```
+
+Abstract
+========================================================
+This project starts a first step guide to dig into the music world based on fictitious data from soundwave. for this purpose the data was generated using an unique "seed". Based on project text "1 million user records, 175 million plays and 240 million operations spanning two years". So, this document tries to explain the approach, results and conclusions, of the related hypothesis through some evidences based on the comparison of played sounds between stream and non-stream services.
+
+
+Results - Question 1
+========================================================
+Show how would you gather and model Soundwave data to build a case that supports  or refutes the streaming service's position from a Soundwave perspective. Consider  Android users only. Note that when an MP3 file or similar is played, the source.name  field of a play is Android  otherwise, it is equal to the name of the streaming service,  e.g. Spotify.  
+
+Reply: This document, as well as, the previous version (now used as support paper), tries to show on low level how I gather and model Soundwave data to build a case that supports.
+
+
+Results - Question 2 (1/3)
+========================================================
+Can you extend your conclusions to the mobile music listening population in general?  If not, why not. If so, how? 
+
+Reply: 
+1) I Used the hypothesis below, extracted from the project text, that says: "Music streaming services such as Spotify and Tidal claim publicly that they are capturing  market share from traditional file based services such as iTunes and 7Digital, or personal CD  rips.  Furthermore, they claim the pace of this change is gathering speed."
+
+Results - Question 2 (2/3)
+========================================================
+2) I asserted that all source.name different then "ANDROID" is one stream service, as well as, each one named "ANDROID" can be other kind of music service (called as non-stream service, in this paper), you can find the extracted text as follow: "Consider  Android users only. Note that when an MP3 file or similar is played, the source.name  field of a play is Android  otherwise, it is equal to the name of the streaming service,  e.g. Spotify.  "
+
+Results - Question 2 (3/3.a)
+========================================================
+3) The answer is: YES. based on the fake data used to analyse the music market share behavior, on the last two years. But, one important point to pay attention is about how long this wave could take until other fashion wave happen, may be a new kind of music stream, share or buy. We can't ignore that the iTunes, 7digital, and other has a lot time on the market and they're tuned in this behavior, probably expending a lot of money on research to find the workaround path, or even to buy great startups on same segment.
+Well, other, important points to pay attention and/or take as hypothesis is:
+a) Internet security, once the user probably will choose the most security plataform.
+
+Results - Question 2 (3/3.b)
+========================================================
+b) The brand power, how much the brand can influence a target public, as well as, Where is this public, who is?
+
+Results - Question 2 (3/3.c)
+========================================================
+c) Many artists are emerging on music scenario while other are loosing space. Who hold the songs rights? The correct song rights, on the correct place, with the correct target public, could be a mine of gold.
+
+Results - Question 2 (3/3.d)
+========================================================
+d) Many other variables must emerge, and probably more different kind of data could be necessary to make a better analyse. 
+For instace, if we can define the musical genre, based on a age range, location, as well as, other existent data on soundwave database, it could be merged with a collection of data that regards the factors that most define new music tendencies. We'll can enhance our songs suggestions.
+
+
+Results - Question 3
+========================================================
+3) We have a sense that any evidence compiled will vary widely by region. Given the  location information associated with a play, discuss how you might break down your  evidence by region.  
+
+Reply: I completely agree. based on the arguments explained above.
+Related the breakdown way. The first part was done, when I extracted the related data from itunes page, as well as, when I gathered the geo location from google api to fill the soundwave PLAY Action model.
+So, With this data on hands, we can use many technical to brake and merge to model other meanings. Just using R I can suggest subset, dplyr, k-means, and many other approachs even using python or Java, if necessary.
+
+Code / Data 
+========================================================
+All the content below tries to show, using a reproducible context, all the steps related to gathering and model data to support this thesis. In bottom, the last section point to reference links, including the previous paper.
+
+
 Non-Automated Part - clone project
 ========================================================
+- JAVA and Maven3 must be pre-installed.
 - To start, you need to clone the support java project from github, as URL to the video below: 
 https://drive.google.com/file/d/0By2jTQ9xDwq-b0dQMFE2YWxydHc/view?usp=sharing
 
-PS.: Maven3 must be pre-installed too.
 
 
 Automated Part - Build and Install rJava - Part 1
@@ -106,12 +167,232 @@ Ps.: All of them uses the global.R script to initialize libraries, define consta
 Creating our data.frame base on the memory
 ========================================================
 
-```{r,echo=TRUE}
+```{r,echo=TRUE,cache=TRUE}
+source("global.R")
+source("swDAO.R")
+
+cursor<<- DAO$findAllObsUnderPlayCollection()
+fullDF<<- DAO$convertCursorToDataFrame(cursor) 
+```
+
+OR
+
+```{r,echo=TRUE,cache=TRUE}
+source("presentationView.R")
+```
 
 
+Applying nrow function on our newest dataset
+========================================================
+- nrow
+```{r,echo=TRUE, cache=TRUE}
+source("presentationView.R")
+nrow(fullDF)
+```
+Annual average access averaged over the period 2013 through 2014
+========================================================
+
+Applying head function on our newest dataset
+========================================================
+- head
+```{r,echo=TRUE, cache=TRUE,results="asis"}
+library(xtable)
+source("presentationView.R")
+xt <- xtable(head(fullDF))
+print(xt, type="html")
+```
+
+Applying tail function on our newest dataset
+========================================================
+- tail
+```{r,echo=TRUE, cache=TRUE,results="asis"}
+library(xtable)
+source("presentationView.R")
+xt <- xtable(tail(fullDF))
+print(xt, type="html")
 ```
 
 
 
+Applying unique/country name function on our newest dataset
+========================================================
+- unique/country
+```{r,echo=TRUE, cache=TRUE}
+source("presentationView.R")
+unique(fullDF$COUNTRY)
+```
 
+
+Summarized Accesses Shared By Service's Name - RDIO
+========================================================
+- RDIO
+```{r,echo=TRUE, cache=TRUE}
+source("presentationView.R")
+Presentation$showSummarizedMarketShareByServiceName(fullDF,"RDIO")
+```
+
+
+Summarized Accesses Shared By Service's Name - ANDROID
+========================================================
+- ANDROID
+```{r,echo=TRUE, cache=TRUE}
+source("presentationView.R")
+Presentation$showSummarizedMarketShareByServiceName(fullDF,"ANDROID")
+```
+
+Summarized Accesses Shared By Service's Name - SPOTIFY
+========================================================
+- SPOTIFY
+```{r,echo=TRUE, cache=TRUE}
+source("presentationView.R")
+Presentation$showSummarizedMarketShareByServiceName(fullDF,"SPOTIFY")
+```
+
+Summarized Accesses Shared By Service's Name - YOUTUBE
+========================================================
+- YOUTUBE
+```{r,echo=TRUE, cache=TRUE}
+source("presentationView.R")
+Presentation$showSummarizedMarketShareByServiceName(fullDF,"YOUTUBE")
+```
+
+Summarized Accesses Shared By Service's Name - SOUNDCLOUD
+========================================================
+- SOUNDCLOUD
+```{r,echo=TRUE, cache=TRUE}
+source("presentationView.R")
+Presentation$showSummarizedMarketShareByServiceName(fullDF,"SOUNDCLOUD")
+```
+
+Summarized Accesses Shared By Service's Name - DEEZER
+========================================================
+- DEEZER
+```{r,echo=TRUE, cache=TRUE}
+source("presentationView.R")
+Presentation$showSummarizedMarketShareByServiceName(fullDF,"DEEZER")
+```
+
+Summarized Accesses Shared By Service's Name - PLAYER_PRO
+========================================================
+- PLAYER_PRO
+```{r,echo=TRUE, cache=TRUE}
+source("presentationView.R")
+Presentation$showSummarizedMarketShareByServiceName(fullDF,"PLAYER_PRO")
+```
+
+Summarized Accesses Shared By Service's Name - WINAMP
+========================================================
+- WINAMP
+```{r,echo=TRUE, cache=TRUE}
+source("presentationView.R")
+Presentation$showSummarizedMarketShareByServiceName(fullDF,"WINAMP")
+```
+
+Summarized Accesses Shared By Service's Name - AMAZON_MUSIC
+========================================================
+- AMAZON_MUSIC
+```{r,echo=TRUE, cache=TRUE}
+source("presentationView.R")
+Presentation$showSummarizedMarketShareByServiceName(fullDF,"AMAZON_MUSIC")
+```
+
+Summarized Accesses Shared By Service's Name - TIDAL
+========================================================
+- TIDAL
+```{r,echo=TRUE, cache=TRUE}
+source("presentationView.R")
+Presentation$showSummarizedMarketShareByServiceName(fullDF,"TIDAL_LOSSLESS_AUDIO")
+```
+
+Comparison of accesses number between stream and non-stream services on the past two years
+========================================================
+
+1) Stream services accesses - Date / Accesses Number
+========================================================
+```{r,echo=TRUE, cache=TRUE}
+
+stream <- subset(fullDF, SOURCE_NAME!="ANDROID")
+stream_tbl <- tbl_df(stream)
+gb <- stream_tbl %>% group_by(PLAY_DATE) %>% tally(sort = TRUE)
+print(gb)
+```
+
+2) Non-stream services accesses - Date / Accesses Number
+========================================================
+```{r,echo=TRUE, cache=TRUE}
+
+stream <- subset(fullDF, SOURCE_NAME=="ANDROID")
+stream_tbl <- tbl_df(stream)
+gb <- stream_tbl %>% group_by(PLAY_DATE) %>% tally(sort = TRUE)
+print(gb)
+```
+
+Comparison of accesses number between stream and non-stream services on the past two years
+========================================================
+
+1) Stream services accesses - Total Accesses Number
+========================================================
+```{r,echo=TRUE, cache=TRUE}
+
+stream <- subset(fullDF, SOURCE_NAME!="ANDROID")
+stream_tbl <- tbl_df(stream)
+gb <- count(stream_tbl,SOURCE_NAME)
+print(gb)
+```
+
+
+2) Non-stream services accesses - Total Accesses Number
+========================================================
+```{r,echo=TRUE, cache=TRUE}
+stream2 <- subset(fullDF, SOURCE_NAME=="ANDROID")
+stream_tbl2 <- tbl_df(stream2)
+gb2 <- count(stream_tbl2,SOURCE_NAME)
+print(gb2)
+```
+
+
+Stream and Non-stream services accesses - Accesses Number in %
+========================================================
+```{r, echo=TRUE}
+count <- rle(sort(fullDF$SOURCE_NAME))
+x <- count$values
+y <- count$lengths
+df<-data.frame(x=x,y=y)
+pie(y,labels=paste0(x,": ",signif((y/sum(y))*100,5),"%"))
+```
+
+Stream services accesses - Accesses Number in %
+========================================================
+```{r, echo=TRUE}
+streamServices <- subset(fullDF, SOURCE_NAME!="ANDROID")
+count <- rle(sort(streamServices$SOURCE_NAME))
+x <- count$values
+y <- count$lengths
+df<-data.frame(x=x,y=y)
+pie(y,labels=paste0(x,": ",signif((y/sum(y))*100,5),"%"))
+```
+
+Non-Stream services accesses - Accesses Number in %
+========================================================
+```{r, echo=TRUE}
+Count <- rle(sort(fullDF$SOURCE_NAME=="ANDROID")) 
+x <- Count$values 
+y <- Count$lengths 
+df2<-data.frame(x=x,y=y) 
+par(mfcol=c(1,2))
+pie(y,labels=paste0(c("OTHER","ANDROID"),": ",signif((y/sum(y))*100,5),"%"))
+
+```
+
+Supplementary Materials 
+========================================================
+Previous paper: https://docs.google.com/document/d/1gthYOdV7g3pHKcXilHfJAbKDQ09n4eVZv3tWHDYCt3I/edit?usp=sharing
+Support Data: https://drive.google.com/file/d/0By2jTQ9xDwq-Z1lmUElZMGtsYkU/view?usp=sharing
+Clone repository video: https://drive.google.com/file/d/0By2jTQ9xDwq-b0dQMFE2YWxydHc/view?usp=sharing
+All support files: https://drive.google.com/folderview?id=0By2jTQ9xDwq-fmIyRXllTTBBQ281UlB6SGxXZmJDX0V5WFFvMXZIcld2VTcxZDZCeWxBd00&usp=sharing
+
+
+Thank you very much for the expend time. 
+========================================================
+:)
 

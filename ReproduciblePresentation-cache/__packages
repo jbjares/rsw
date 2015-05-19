@@ -1,0 +1,10 @@
+base
+knitr
+rmongodb
+ggplot2
+reshape
+plyr
+dplyr
+lattice
+xtable
+lubridate
